@@ -4,12 +4,16 @@ function bootstrap {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
   source "$shome/script/profile"
 
+  git clone git@github.com:imma/rust $shome/../rust || true
+  (cd "$shome/../rust" && block bootstrap)
+
   git clone git@github.com:linkerd/linkerd-tcp "$shome/vendor/linkerd-tcp" || true
   pushd "$shome/vendor/linkerd-tcp"
-  cargo build
+  cargo build --release
+  rm -rf "$shome/../rust"
   popd
 
-  localhost -m file -- state=link src="../vendor/linkerd-tcp/target/debug/linkerd-tcp" dest="$shome/bin/linkerd-tcp"
+  localhost -m file -- state=link src="../vendor/linkerd-tcp/target/release/linkerd-tcp" dest="$shome/bin/linkerd-tcp"
 }
 
 bootstrap
