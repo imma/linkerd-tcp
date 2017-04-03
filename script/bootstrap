@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+function bootstrap {
+  local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
+  source "$shome/script/profile"
+
+  git clone git@github.com:linkerd/linkerd-tcp "$shome/vendor/linkerd-tcp" || true
+  pushd "$shome/vendor/linkerd-tcp"
+  cargo build
+  popd
+
+  localhost -m file -- state=link src="../vendor/linkerd-tcp/target/debug/linkerd-tcp" dest="$shome/bin/linkerd-tcp"
+}
+
+bootstrap

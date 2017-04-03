@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+function _linkerd_tcp_profile {
+  local shome="${_linkerd_tcp_home:-"$(cd -P -- "$(dirname -- "$BASH_SOURCE")/.." && pwd -P)"}"
+  PATH="$shome/bin:$PATH"
+}
+
+_linkerd_tcp_profile
