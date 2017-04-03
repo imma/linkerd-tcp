@@ -9,6 +9,9 @@ function bootstrap {
 
   git clone git@github.com:linkerd/linkerd-tcp "$shome/vendor/linkerd-tcp" || true
   pushd "$shome/vendor/linkerd-tcp"
+  pushd "$shome/../rust"
+  require
+  popd
   cargo build --release
   rm -rf "$shome/../rust"
   popd
