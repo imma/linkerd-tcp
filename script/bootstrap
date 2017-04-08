@@ -11,7 +11,6 @@ function bootstrap {
   pushd "$shome/vendor/linkerd-tcp"
   source "$shome/../rust/script/profile"
   cargo build --release
-  rm -rf "$shome/../rust"
   popd
 
   localhost -m file -- state=link src="../vendor/linkerd-tcp/target/release/linkerd-tcp" dest="$shome/bin/linkerd-tcp"
