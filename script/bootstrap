@@ -4,7 +4,7 @@ function bootstrap {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
   source "$shome/script/profile"
 
-  git clone git@github.com:imma/rust $shome/../rust || true
+  git clone -b develop git@github.com:imma/rust $shome/../rust || true
   (cd "$shome/../rust" && block bootstrap)
 
   git clone git@github.com:linkerd/linkerd-tcp "$shome/vendor/linkerd-tcp" || true
