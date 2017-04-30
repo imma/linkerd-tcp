@@ -13,7 +13,7 @@ function server {
       local pth_config="/config/linkerd-tcp/linkerd-tcp.yaml"
 
       if [[ -f "$pth_config" ]]; then
-        export RUST_LOG=trace
+        export RUST_LOG='linkerd_tcp=info'
         exec linkerd-tcp "$pth_config"
       else
         echo "ERROR: missing $pth_config" 1>&2
